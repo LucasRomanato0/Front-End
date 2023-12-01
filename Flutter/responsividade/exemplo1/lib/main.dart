@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       title: 'Flutter Demo',
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
