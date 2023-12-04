@@ -28,13 +28,22 @@ class AdvantagesSection extends StatelessWidget {
       );
     }
 
-    return Wrap(
-      alignment: WrapAlignment.spaceEvenly,
-      children: [
-        buildAdvantages('Curso de responsividade', 'Mobile'),
-        buildAdvantages('Curso de responsividade', 'Tablet'),
-        buildAdvantages('Curso de responsividade', 'Web'),
-      ],
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 8),
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.grey),
+        ),
+      ),
+      child: Wrap(
+        alignment: WrapAlignment.spaceEvenly,
+        runSpacing: 16,
+        children: [
+          buildAdvantages('Curso de responsividade', 'Mobile'),
+          buildAdvantages('Curso de responsividade', 'Tablet'),
+          buildAdvantages('Curso de responsividade', 'Web'),
+        ],
+      ),
     );
   }
 }
