@@ -1,6 +1,7 @@
 import 'package:exemplo1/breakpoints.dart';
 import 'package:exemplo1/pages/home/widgets/app_bar/mobile_app_bar.dart';
 import 'package:exemplo1/pages/home/widgets/app_bar/web_app_bar.dart';
+import 'package:exemplo1/pages/home/widgets/sections/advantages_section.dart';
 import 'package:exemplo1/pages/home/widgets/sections/top_section.dart';
 import 'package:flutter/material.dart';
 
@@ -31,8 +32,9 @@ class HomePage extends StatelessWidget {
                 maxWidth: 1400, // caso a tela seja muito grande ele limita
               ),
               child: ListView(
-                children: [
+                children: const [
                   TopSection(),
+                  AdvantagesSection(),
                 ],
               ),
             ),
