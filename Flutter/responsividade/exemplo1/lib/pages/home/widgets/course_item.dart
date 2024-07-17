@@ -25,6 +25,7 @@ class CourseItem extends StatelessWidget {
               color: Colors.white,
             ),
             minFontSize: 1,
+            maxLines: 2,
           ),
         ),
         const Text(
