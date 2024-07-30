@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var controller = Modular.get<HomeController>();
+  final controller = Modular.get<HomeController>();
 
   @override
   void initState() {

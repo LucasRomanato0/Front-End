@@ -13,8 +13,9 @@ class HomeController {
     if (!res.success) {
       contacts = [];
       print(res.message);
-    } else {
-      contacts = res.body as List<UserDto>;
+      return;
     }
+
+    contacts = res.body as List<UserDto>;
   }
 }

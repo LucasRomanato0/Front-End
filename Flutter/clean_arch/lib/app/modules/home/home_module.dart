@@ -10,13 +10,13 @@ import 'package:flutter_modular/flutter_modular.dart';
 class HomeModule extends Module {
   @override
   void binds(i) {
-    i.addLazySingleton<IGetUsersDatasource>((i) => GetUsersDatasource());
-    i.addLazySingleton<IGetUsersRepository>((i) => GetUsersRepository(i()));
-    i.addLazySingleton<IGetUsersUsecase>((i) => GetUsersUsecase(i()));
+    i.addLazySingleton<IGetUsersDatasource>(GetUsersDatasource.new);
+    i.addLazySingleton<IGetUsersRepository>((i) => GetUsersRepository(i.get()));
+    i.addLazySingleton<IGetUsersUsecase>((i) => GetUsersUsecase(i.get()));
 
     // i<GetUsersUsecase>()
-    i.addLazySingleton<HomeController>(
-      (i) => HomeController(i<GetUsersUsecase>()),
+    i.addSingleton<HomeController>(
+      (i) => HomeController(i.get<GetUsersUsecase>()),
     );
   }
 
