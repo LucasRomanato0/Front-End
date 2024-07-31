@@ -44,6 +44,12 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Modular.to.pushNamed('/add');
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

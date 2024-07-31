@@ -9,18 +9,42 @@ class HttpClientAdapter {
 
   final client = Dio();
 
-  Future get(String path,
-      {Object? data,
-      Map<String, dynamic>? queryParameters,
-      Options? options,
-      CancelToken? cancelToken,
-      void Function(int, int)? onReceiveProgress}) async {
+  Future get(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    void Function(int, int)? onReceiveProgress,
+  }) async {
     var res = await client.get(
       path,
       data: data,
       queryParameters: queryParameters,
       options: options,
       cancelToken: cancelToken,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    return res.data;
+  }
+
+  Future post(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    void Function(int, int)? onSendProgress,
+    void Function(int, int)? onReceiveProgress,
+  }) async {
+    var res = await client.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
