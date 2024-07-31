@@ -29,7 +29,7 @@ class HomeModule extends Module {
         Bind.singleton<HomeController>(
           (i) => HomeController(i<GetUsersUsecase>()),
         ),
-        Bind.singleton<AddController>((i) => AddController()),
+        Bind.singleton<AddController>((i) => AddController(i())),
       ];
 
   @override

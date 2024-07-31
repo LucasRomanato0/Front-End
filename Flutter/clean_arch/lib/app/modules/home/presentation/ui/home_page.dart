@@ -45,8 +45,11 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Modular.to.pushNamed('/add');
+        onPressed: () async {
+          var res = await Modular.to.pushNamed('/add');
+          if (res == true) {
+            getData();
+          }
         },
         child: const Icon(Icons.add),
       ),
