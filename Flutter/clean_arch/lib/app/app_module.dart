@@ -1,12 +1,15 @@
 import 'package:clean_arch/app/modules/home/home_module.dart';
+import 'package:clean_arch/app/modules/shared/http/http_client.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
   @override
-  void binds(Injector i) {}
+  List<Bind<Object>> get binds => [
+        Bind.singleton((i) => HttpClientAdapter()),
+      ];
 
   @override
-  void routes(RouteManager r) {
-    r.module('/', module: HomeModule());
-  }
+  List<ModularRoute> get routes => [
+        ModuleRoute('/', module: HomeModule()),
+      ];
 }

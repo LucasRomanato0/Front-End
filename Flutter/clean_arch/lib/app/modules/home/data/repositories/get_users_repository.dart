@@ -1,9 +1,9 @@
+import 'package:clean_arch/app/modules/home/data/datasources/i_get_users_datasource.dart';
 import 'package:clean_arch/app/modules/home/domain/models/dto/user_dto.dart';
 import 'package:clean_arch/app/modules/home/domain/repositories/i_get_users_repository.dart';
-import 'package:clean_arch/app/modules/home/external/datasources/get_users_datasource.dart';
 
 class GetUsersRepository implements IGetUsersRepository {
-  final GetUsersDatasource _datasource;
+  final IGetUsersDatasource _datasource;
   GetUsersRepository(this._datasource);
 
   @override

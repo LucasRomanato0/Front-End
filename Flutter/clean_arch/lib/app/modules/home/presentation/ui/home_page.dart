@@ -15,7 +15,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    controller.getData();
+    getData();
+  }
+
+  void getData() async {
+    await controller.getData();
+    setState(() {});
   }
 
   @override
@@ -23,6 +28,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contatos'),
+        backgroundColor: Colors.blue,
       ),
       body: ListView.builder(
         itemCount: controller.contacts.length,
@@ -31,7 +37,7 @@ class _HomePageState extends State<HomePage> {
 
           return ListTile(
             leading: CircleAvatar(
-              child: Text(model.name?.substring(0) ?? ''),
+              child: Text(model.name?.substring(0, 2) ?? ''),
             ),
             title: Text(model.name ?? ''),
             subtitle: Text('${model.email} / ${model.phone}'),

@@ -9,19 +9,17 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeModule extends Module {
   @override
-  void binds(i) {
-    i.addLazySingleton<IGetUsersDatasource>(GetUsersDatasource.new);
-    i.addLazySingleton<IGetUsersRepository>((i) => GetUsersRepository(i.get()));
-    i.addLazySingleton<IGetUsersUsecase>((i) => GetUsersUsecase(i.get()));
-
-    // i<GetUsersUsecase>()
-    i.addSingleton<HomeController>(
-      (i) => HomeController(i.get<GetUsersUsecase>()),
-    );
-  }
+  List<Bind<Object>> get binds => [
+        Bind.lazySingleton<IGetUsersDatasource>((i) => GetUsersDatasource(i())),
+        Bind.lazySingleton<IGetUsersRepository>((i) => GetUsersRepository(i())),
+        Bind.lazySingleton<IGetUsersUsecase>((i) => GetUsersUsecase(i())),
+        Bind.singleton<HomeController>(
+          (i) => HomeController(i<GetUsersUsecase>()),
+        ),
+      ];
 
   @override
-  void routes(r) {
-    r.child(Modular.initialRoute, child: (_) => const HomePage());
-  }
+  List<ModularRoute> get routes => [
+        ChildRoute(Modular.initialRoute, child: (_, __) => const HomePage()),
+      ];
 }
