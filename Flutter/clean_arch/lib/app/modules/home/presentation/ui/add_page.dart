@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AddPage extends StatefulWidget {
-  const AddPage({super.key});
+  final UserDto? userDto;
+  const AddPage({super.key, this.userDto});
 
   @override
   State<AddPage> createState() => _AddPageState();
@@ -19,10 +20,23 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController _phoneController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.userDto != null) {
+      _nameController.text = widget.userDto!.name ?? '';
+      _emailController.text = widget.userDto!.email ?? '';
+      _phoneController.text = widget.userDto!.phone ?? '';
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Novo Contato'),
+        title: Text(
+          widget.userDto == null ? 'Novo Contato' : 'Alterar Contato',
+        ),
         backgroundColor: Colors.blue,
       ),
       body: Container(
@@ -73,26 +87,49 @@ class _AddPageState extends State<AddPage> {
               ElevatedButton(
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
-                    var res = await controller.addContact(
-                      UserDto(
-                        name: _nameController.text,
-                        email: _emailController.text,
-                        phone: _phoneController.text,
-                      ),
-                    );
-
-                    if (res.success) {
-                      await alertMessage('Contato adicionado!');
-                      Modular.to.pop();
-                      Modular.to.pop(true); // Refresh list
-                    } else {
-                      await alertMessage(
-                        res.message ?? 'ERROR',
+                    // add
+                    if (widget.userDto == null) {
+                      var res = await controller.addContact(
+                        UserDto(
+                          name: _nameController.text,
+                          email: _emailController.text,
+                          phone: _phoneController.text,
+                        ),
                       );
+
+                      if (res.success) {
+                        await alertMessage('Contato adicionado!');
+                        Modular.to.pop();
+                        Modular.to.pop(true); // Refresh list
+                      } else {
+                        await alertMessage(
+                          res.message ?? 'ERROR',
+                        );
+                      }
+                    } else {
+                      // update
+                      var res = await controller.editContact(
+                        UserDto(
+                          id: widget.userDto!.id,
+                          name: _nameController.text,
+                          email: _emailController.text,
+                          phone: _phoneController.text,
+                        ),
+                      );
+
+                      if (res.success) {
+                        await alertMessage('Contato alterado!');
+                        Modular.to.pop();
+                        Modular.to.pop(true); // Refresh list
+                      } else {
+                        await alertMessage(
+                          res.message ?? 'ERROR',
+                        );
+                      }
                     }
                   }
                 },
-                child: const Text('Salvar'),
+                child: Text(widget.userDto == null ? 'Salvar' : 'Alterar'),
               ),
             ],
           ),

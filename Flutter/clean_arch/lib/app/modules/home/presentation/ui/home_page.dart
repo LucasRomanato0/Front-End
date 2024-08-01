@@ -2,6 +2,7 @@ import 'package:clean_arch/app/modules/home/domain/models/dto/user_dto.dart';
 import 'package:clean_arch/app/modules/home/presentation/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,13 +37,31 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (_, index) {
           final model = controller.contacts[index];
 
-          return ListTile(
-            onTap: () => _confirmDelete(model),
-            leading: CircleAvatar(
-              child: Text(model.name?.substring(0, 2) ?? ''),
+          return Slidable(
+            endActionPane: ActionPane(
+              motion: const ScrollMotion(),
+              children: [
+                SlidableAction(
+                  onPressed: (context) => _updateContact(model),
+                  icon: Icons.edit,
+                  backgroundColor: Colors.yellow,
+                  foregroundColor: Colors.black,
+                ),
+                SlidableAction(
+                  onPressed: (context) => _confirmDelete(model),
+                  icon: Icons.delete_outline,
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+              ],
             ),
-            title: Text(model.name ?? ''),
-            subtitle: Text('${model.email} / ${model.phone}'),
+            child: ListTile(
+              leading: CircleAvatar(
+                child: Text(model.name?.substring(0, 2) ?? ''),
+              ),
+              title: Text(model.name ?? ''),
+              subtitle: Text('${model.email} / ${model.phone}'),
+            ),
           );
         },
       ),
@@ -84,5 +103,12 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  _updateContact(UserDto model) async {
+    var res = await Modular.to.pushNamed('/add', arguments: model);
+    if (res == true) {
+      getData();
+    }
   }
 }

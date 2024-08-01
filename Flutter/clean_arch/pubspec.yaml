@@ -15,6 +15,7 @@ dependencies:
   flutter_modular: ^5.0.3
   dio: ^5.5.0+1
   mockito: ^5.4.4
+  flutter_slidable: ^3.1.1
 
 dev_dependencies:
   flutter_test:
