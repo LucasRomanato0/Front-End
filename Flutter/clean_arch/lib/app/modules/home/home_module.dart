@@ -1,14 +1,20 @@
+import 'package:clean_arch/app/modules/home/data/datasources/i_delete_user_datasource.dart';
 import 'package:clean_arch/app/modules/home/data/datasources/i_get_user_datasource.dart';
 import 'package:clean_arch/app/modules/home/data/datasources/i_get_users_datasource.dart';
 import 'package:clean_arch/app/modules/home/data/repositories/add_user_repository.dart';
+import 'package:clean_arch/app/modules/home/data/repositories/delete_user_repository.dart';
 import 'package:clean_arch/app/modules/home/data/repositories/get_users_repository.dart';
 import 'package:clean_arch/app/modules/home/domain/repositories/i_add_user_repository.dart';
+import 'package:clean_arch/app/modules/home/domain/repositories/i_delete_user_repository.dart';
 import 'package:clean_arch/app/modules/home/domain/repositories/i_get_users_repository.dart';
 import 'package:clean_arch/app/modules/home/domain/usecases/add_user_usecase.dart';
+import 'package:clean_arch/app/modules/home/domain/usecases/delete_user_usecase.dart';
 import 'package:clean_arch/app/modules/home/domain/usecases/get_users_usecase.dart';
 import 'package:clean_arch/app/modules/home/external/datasources/add_user_datasource.dart';
+import 'package:clean_arch/app/modules/home/external/datasources/delete_user_datasource.dart';
 import 'package:clean_arch/app/modules/home/external/datasources/get_users_datasource.dart';
 import 'package:clean_arch/app/modules/home/presentation/controllers/add_controller.dart';
+import 'package:clean_arch/app/modules/home/presentation/controllers/delete_controller.dart';
 import 'package:clean_arch/app/modules/home/presentation/controllers/home_controller.dart';
 import 'package:clean_arch/app/modules/home/presentation/ui/add_page.dart';
 import 'package:clean_arch/app/modules/home/presentation/ui/home_page.dart';
@@ -25,11 +31,20 @@ class HomeModule extends Module {
         Bind.lazySingleton<IAddUserRepository>((i) => AddUserRepository(i())),
         Bind.lazySingleton<IAddUserUsecase>((i) => AddUserUsecase(i())),
 
+        Bind.lazySingleton<IDeleteUserDatasource>(
+          (i) => DeleteUserDatasource(i()),
+        ),
+        Bind.lazySingleton<IDeleteUserRepository>(
+          (i) => DeleteUserRepository(i()),
+        ),
+        Bind.lazySingleton<IDeleteUserUsecase>((i) => DeleteUserUsecase(i())),
+
         // Controllers
         Bind.singleton<HomeController>(
           (i) => HomeController(i<GetUsersUsecase>()),
         ),
         Bind.singleton<AddController>((i) => AddController(i())),
+        Bind.singleton<DeleteController>((i) => DeleteController(i())),
       ];
 
   @override
