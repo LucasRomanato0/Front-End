@@ -7,7 +7,7 @@ class DeleteUserDatasource implements IDeleteUserDatasource {
 
   @override
   Future<Map<String, dynamic>> call(String id) async {
-    var res = await _client.delete('/users', data: id);
+    var res = await _client.delete('/users/$id');
 
     return Map.from(res);
   }

@@ -14,7 +14,6 @@ import 'package:clean_arch/app/modules/home/external/datasources/add_user_dataso
 import 'package:clean_arch/app/modules/home/external/datasources/delete_user_datasource.dart';
 import 'package:clean_arch/app/modules/home/external/datasources/get_users_datasource.dart';
 import 'package:clean_arch/app/modules/home/presentation/controllers/add_controller.dart';
-import 'package:clean_arch/app/modules/home/presentation/controllers/delete_controller.dart';
 import 'package:clean_arch/app/modules/home/presentation/controllers/home_controller.dart';
 import 'package:clean_arch/app/modules/home/presentation/ui/add_page.dart';
 import 'package:clean_arch/app/modules/home/presentation/ui/home_page.dart';
@@ -41,10 +40,9 @@ class HomeModule extends Module {
 
         // Controllers
         Bind.singleton<HomeController>(
-          (i) => HomeController(i<GetUsersUsecase>()),
+          (i) => HomeController(i<IGetUsersUsecase>(), i<IDeleteUserUsecase>()),
         ),
         Bind.singleton<AddController>((i) => AddController(i())),
-        Bind.singleton<DeleteController>((i) => DeleteController(i())),
       ];
 
   @override
