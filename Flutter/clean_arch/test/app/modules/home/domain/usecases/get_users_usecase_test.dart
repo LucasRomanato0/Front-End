@@ -23,7 +23,7 @@ void main() {
   });
 
   test('testar se foi sucesso na requisicao', () async {
-    when(getUsersDatasource()).thenAnswer((_) async => mock);
+    when(getUsersDatasource()).thenAnswer((_) async => mockList);
 
     var res = await getUsersUsecase();
 
